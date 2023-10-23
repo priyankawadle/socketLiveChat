@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Socket IO Chat App</title>
+</head>
+<body>
+
+<div class="Container">
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-6 col-12 col-lg-6">
+            <div class="input-group">
+                <center>
+                <h1>Live Chat Applocation</h1><br><br>
+                <input id="inputVal" type="text" class="form-control" style="width: 300px; height: 25px;">
+                <button onclick="send()" class="btn-btn" style="height: 25px; border-color: black; background-color: cadetblue;">SEND DATA</button>
+                </center>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="Container">
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-6 col-12 col-lg-6">
+            <div class="input-group">
+               <ul id="mainList">
+
+               </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script>
+const socket = io();
+function send(){
+  let val = document.getElementById('inputVal').value;
+  socket.emit('chat',val)
+  document.getElementById('inputVal').value = "";
+}
+socket.on('myEvent2',data=>{
+    const list = document.createElement('li')
+    list.innerHTML = data
+    const MainList = document.getElementById('mainList')
+    MainList.appendChild(list);
+})
+
+</script>
+</body>
+</html>
